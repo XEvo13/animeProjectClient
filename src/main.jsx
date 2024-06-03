@@ -2,9 +2,18 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 import './index.css'
+import { AuthProviderWrapper } from './context/auth.context.jsx';
+//import { root } from 'postcss';
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+
+root.render(
   <React.StrictMode>
-    <App />
+    <Router>
+      <AuthProviderWrapper>
+        <App />
+      </AuthProviderWrapper>
+    </Router>
   </React.StrictMode>,
-)
+);
