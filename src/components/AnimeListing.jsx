@@ -20,18 +20,21 @@ function AnimeList() {
   return (
     <div>
       <h1>Anime List</h1>
-      <ul>
-        {animes.map(anime => (
-          <li key={anime._id}>
-          
-              <h2>{anime.title}</h2>
-              <Link to={`/anime/${anime._id}`}>
-                <img src={anime.picture} alt={anime.title} width="200" />
-              </Link> 
-           
-          </li>
-        ))}
-      </ul>
+      <ul className="grid grid-cols-4">
+  {animes.map(anime => {
+    if (anime.picture) {
+      return (
+        <li key={anime._id}>
+          <h2 className="mr-4">{anime.title}</h2>
+          <Link to={`/anime/${anime._id}`}>
+            <img src={anime.picture} alt={anime.title} width="200" />
+          </Link>
+        </li>
+      );
+    }
+    return null; 
+  })}
+</ul>
     </div>
   );
 }

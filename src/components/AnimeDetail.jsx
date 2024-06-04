@@ -13,39 +13,38 @@ function AnimeDetail() {
   useEffect(() => {
     axios.get(`http://localhost:5005/api/anime/${id}`)
       .then(response => {
-        console.log(response.data); // Inspect the structure here
         setAnime(response.data);
       })
       .catch(error => {
         console.error('Error fetching anime details:', error);
       });
 
-    axios.get(`http://localhost:5005/api/${id}/comments`)
-      .then(response => {
-        console.log(response.data); // Inspect the structure here
-        setComments(response.data);
-      })
-      .catch(error => {
-        console.error('Error fetching comments:', error);
-      });
 
-    axios.get(`http://localhost:5005/api/${id}/ratings`)
-      .then(response => {
-        console.log(response.data); // Inspect the structure here
-        setRatings(response.data);
-      })
-      .catch(error => {
-        console.error('Error fetching ratings:', error);
-      });
+      
+    // axios.get(`http://localhost:5005/api/comments/${id}`)
+    //   .then(response => {
+    //     setComments(response.data);
+    //   })
+    //   .catch(error => {
+    //     console.error('Error fetching comments:', error);
+    //   });
+
+    // axios.get(`http://localhost:5005/api/ratings/${id}`)
+    //   .then(response => {
+    //     setRatings(response.data);
+    //   })
+    //   .catch(error => {
+    //     console.error('Error fetching ratings:', error);
+    //   });
   }, [id]);
 
-  /* const handleAddRating = (newRating) => {
-    setRatings([...ratings, newRating]);
-  }; */
+  const handleAddComment = (newComment) => {
+    setComments([...comments, newComment]);
+  };
 
-  // const handleAddComment = (newComment) => {
-  //   setComments([...comments, newComment]);
-  // };
+  const handleAddRating = (newRating) => {
+    setRatings([...ratings, newRating]);
+  };
 
   if (!anime) return <p>Loading...</p>;
 
@@ -56,17 +55,26 @@ function AnimeDetail() {
       <p>Episodes: {anime.episodes}</p>
 
       <h2>Comments</h2>
-      {/* <ul>
+      <ul>
         {comments.map(comment => (
           <li key={comment._id}>
             <p>{comment.content}</p>
-            <small>By: {comment.user.name}</small>
+            {/* <small>By: {comment.user.name}</small> */}
           </li>
         ))}
-      </ul> */}
-      <CommentForm animeId={id} />
+      </ul>
+      <CommentForm animeId={id} onAddComment={handleAddComment} />
+
       <h2>Ratings</h2>
-      <RatingForm animeId={id} />
+      <ul>
+        {ratings.map(rating => (
+          <li key={rating._id}>
+            <p>Score: {rating.score}</p>
+            <small>By: {rating.user.name}</small>
+          </li>
+        ))}
+      </ul>
+      <RatingForm animeId={id} onAddRating={handleAddRating} />
     </div>
   );
 }
