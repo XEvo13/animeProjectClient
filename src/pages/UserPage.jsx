@@ -5,7 +5,6 @@ import { AuthContext } from "../context/auth.context";
 import FriendsList from "../components/FriendsList";
 import AllUsersList from "../components/AllUsersList";
 import FriendsActions from "../components/FriendsActions";
-// import UserComments from "../components/UserComments"; // Import the new component
 
 const API_URL = "http://localhost:5005";
 
@@ -52,20 +51,32 @@ export default function UserPage() {
     }
 
     return (
-        <>
-           
-            <div className="UserPage">
-                <h1>{user.name}'s Page</h1>
-                {errorMessage && <p className="error-message">{errorMessage}</p>}
+        <div className="UserPage p-4">
+            <h1 className="text-2xl font-bold mb-4">{user.name}'s Page</h1>
+            {errorMessage && <p className="text-red-500">{errorMessage}</p>}
+            
+            <div className="flex flex-col mb-8">
                 <p>Email: {user.email}</p>
                 <p>Friends: {user.friends.length}</p>
                 <p>Animes: {user.animes.length}</p>
-                
-                <FriendsList friends={user.friends} />
-                <AllUsersList allUsers={allUsers} userFriends={user.friends} addFriend={handleAddFriend} />
-                <FriendsActions userId={userId} />
-                {/* <UserComments /> No need to pass userId as a prop */}
             </div>
-        </>
+
+            <div className="flex flex-row justify-between">
+                <div className="w-1/4">
+                    <h2 className="text-xl font-semibold mb-2">Friends List</h2>
+                    <FriendsList friends={user.friends} />
+                </div>
+
+                <div className="w-1/2 flex flex-col items-center">
+                    <h2 className="text-xl font-semibold mb-2">Friends Actions</h2>
+                    <FriendsActions userId={userId} />
+                </div>
+
+                <div className="w-1/4">
+                    <h2 className="text-xl font-semibold mb-2">Add Friends</h2>
+                    <AllUsersList allUsers={allUsers} userFriends={user.friends} addFriend={handleAddFriend} />
+                </div>
+            </div>
+        </div>
     );
 }
