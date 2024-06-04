@@ -64,7 +64,7 @@ function CommentForm({ animeId }) {
 
     return (
         <form onSubmit={handleSubmit}>
-            <textarea 
+            <textarea
                 value={content}
                 onChange={(e) => setContent(e.target.value)}
                 placeholder="Add a comment"
