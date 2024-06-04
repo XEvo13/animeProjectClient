@@ -1,17 +1,18 @@
-import React, { useState } from "react";
-import axios from "axios";
+import React, { useState, useContext } from 'react';
+import axios from 'axios';
+import { AuthContext } from '../context/auth.context'; // Adjust the import path as necessary
 
-function RatingForm({ animeId, onAddRating }) {
+function RatingForm({ animeId }) {
     const [score, setScore] = useState(0);
+    const { user } = useContext(AuthContext); // Access the user from the context
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Replace 'user' with the current logged in user's ID.
-        const user = "currentUserId"; // Update this to get the actual logged in user's ID.
+        const userId = user._id; // Get the logged-in user's ID from context
 
-        axios.post('http://localhost:5005/api/ratings', { user, anime: animeId, score })
+        axios.post('http://localhost:5005/api/ratings', { user: userId, anime: animeId, score })
             .then(response => {
-                onAddRating(response.data.rating);
+                /* onAddRating(response.data.rating); */
                 setScore(0);
             })
             .catch(error => {
@@ -21,7 +22,7 @@ function RatingForm({ animeId, onAddRating }) {
 
     return (
         <form onSubmit={handleSubmit}>
-            <div className="rating">
+            <div>
                 {[5, 4, 3, 2, 1].map((value) => (
                     <React.Fragment key={value}>
                         <input
@@ -29,19 +30,13 @@ function RatingForm({ animeId, onAddRating }) {
                             id={`star${value}`}
                             name="rating"
                             value={value}
-                            checked={rating === value}
-                            onChange={() => setRating(value)}
-                            style={{ display: 'none' }}
+                            checked={score === value}
+                            onChange={() => setScore(value)}
                         />
-                        <label
-                            htmlFor={`star${value}`}
-                            style={{
-                                fontSize: '2em',
-                                color: rating >= value ? '#FFD700' : '#DDDDDD',
-                                cursor: 'pointer'
-                            }}
-                        >★</label>
+                        <label htmlFor={`star${value}`}>{value}</label>
                     </React.Fragment>
+                    //it allows grouping a list of children elements
+                    //without adding extra nodes to the DOM
                 ))}
             </div>
             <button type="submit">Submit</button>
