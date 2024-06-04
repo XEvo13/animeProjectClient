@@ -1,23 +1,77 @@
-import React, { useState, useContext } from 'react';
-import axios from 'axios';
-import { AuthContext } from '../context/auth.context'; // Adjust the import path as necessary
+import React, { useState, useContext, useEffect } from "react";
+import axios from "axios";
+import { AuthContext } from "../context/auth.context"; // Adjust the import path as necessary
 
 function RatingForm({ animeId }) {
     const [score, setScore] = useState(0);
+    const [existingRatingId, setExistingRatingId] = useState(null);
     const { user } = useContext(AuthContext); // Access the user from the context
+
+    useEffect(() => {
+        // Fetch the existing rating if available
+        const userId = user._id; // Get the logged-in user's ID from context
+
+        axios
+            .get(`http://localhost:5005/api/ratings/${animeId}/${userId}`)
+            .then((response) => {
+                if (response.data) {
+                    setScore(response.data.score);
+                    setExistingRatingId(response.data._id);
+                }
+            })
+            .catch((error) => {
+                console.error("Error fetching existing comment:", error);
+            });
+    }, [animeId, user._id]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
         const userId = user._id; // Get the logged-in user's ID from context
 
-        axios.post('http://localhost:5005/api/ratings', { user: userId, anime: animeId, score })
-            .then(response => {
-                /* onAddRating(response.data.rating); */
-                setScore(0);
-            })
-            .catch(error => {
-                console.error("Error adding rating:", error);
-            });
+        if (existingRatingId) {
+            axios
+                .put("http://localhost:5005/api/ratings", {
+                    user: userId,
+                    anime: animeId,
+                    score,
+                })
+                .then((response) => {
+                    /* onAddRating(response.data.rating); */
+                    setScore(0);
+                })
+                .catch((error) => {
+                    console.error("Error adding rating:", error);
+                });
+        } else {
+            // Create new rating
+            axios
+                .post("http://localhost:5005/api/ratings", {
+                    user: userId,
+                    anime: animeId,
+                    score,
+                })
+                .then((response) => {
+                    setScore(0);
+                    setExistingRatingId(response.data.rating._id);
+                })
+                .catch((error) => {
+                    console.error("Error adding a rating:", error);
+                });
+        }
+    };
+
+    const handleDelete = () => {
+        if (existingRatingId) {
+            axios
+                .delete(`http://localhost:5005/api/ratings/${existingRatingId}`)
+                .then((response) => {
+                    setScore(0);
+                    setExistingRatingId(null);
+                })
+                .catch((error) => {
+                    console.error("Error deleting rating:", error);
+                });
+        }
     };
 
     return (
@@ -39,7 +93,14 @@ function RatingForm({ animeId }) {
                     //without adding extra nodes to the DOM
                 ))}
             </div>
-            <button type="submit">Submit</button>
+            <button type="submit">
+                {existingRatingId ? "Update Rating" : "Submit Rating"}
+            </button>
+            {existingRatingId && (
+                <button type="button" onClick={handleDelete}>
+                    Delete Rating
+                </button>
+            )}
         </form>
     );
 }

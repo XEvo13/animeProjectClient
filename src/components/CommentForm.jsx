@@ -72,6 +72,7 @@ function CommentForm({ animeId, onAddComment }) {
     }
   };
 
+
   return (
     <form onSubmit={handleSubmit}>
       <textarea 
@@ -83,6 +84,7 @@ function CommentForm({ animeId, onAddComment }) {
       {existingCommentId && <button type="button" onClick={handleDelete}>Delete Comment</button>}
     </form>
   );
+
 }
 
 export default CommentForm;
