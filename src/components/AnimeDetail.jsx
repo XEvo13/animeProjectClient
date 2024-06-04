@@ -28,9 +28,9 @@ function AnimeDetail() {
       });
   }, [id]);
 
-  const handleAddComment = (newComment) => {
-    setComments([...comments, newComment]);
-  };
+  // const handleAddComment = (newComment) => {
+  //   setComments([...comments, newComment]);
+  // };
 
   if (!anime) return <p>Loading...</p>;
 
@@ -50,7 +50,7 @@ function AnimeDetail() {
         ))}
       </ul> */}
 
-      <CommentForm animeId={id} onAddComment={handleAddComment} />
+      <CommentForm animeId={id} o />
     </div>
   );
 }
