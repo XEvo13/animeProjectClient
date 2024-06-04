@@ -9,16 +9,18 @@ function AnimeDetail() {
   const [comments, setComments] = useState([]);
 
   useEffect(() => {
-    axios.get(`/api/animes/${id}`)
+    axios.get(`http://localhost:5005/api/anime/${id}`)
       .then(response => {
+        console.log(response.data); // Inspect the structure here
         setAnime(response.data);
       })
       .catch(error => {
         console.error('Error fetching anime details:', error);
       });
-
-    axios.get(`/api/${id}/comments`)
+  
+    axios.get(`http://localhost:5005/api/${id}/comments`)
       .then(response => {
+        console.log(response.data); // Inspect the structure here
         setComments(response.data);
       })
       .catch(error => {
@@ -39,14 +41,14 @@ function AnimeDetail() {
       <p>Episodes: {anime.episodes}</p>
 
       <h2>Comments</h2>
-      <ul>
+      {/* <ul>
         {comments.map(comment => (
           <li key={comment._id}>
             <p>{comment.content}</p>
             <small>By: {comment.user.name}</small>
           </li>
         ))}
-      </ul>
+      </ul> */}
 
       <CommentForm animeId={id} onAddComment={handleAddComment} />
     </div>

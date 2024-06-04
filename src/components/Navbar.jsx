@@ -11,6 +11,12 @@ function Navbar() {
                 <>
                     <button onClick={logOutUser}>Logout</button>
                     <span>{user && user.name}</span>
+                    <Link to={`/${user._id}`}>
+                        <button>My Page</button>
+                    </Link>
+                    <Link to={`/`}>
+                        <button>Anime Page</button>
+                    </Link>
                 </>
             )}
             {!isLoggedIn && (

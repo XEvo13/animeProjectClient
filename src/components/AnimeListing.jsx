@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import axios from 'axios';
 
@@ -24,7 +25,9 @@ function AnimeList() {
           <li key={anime._id}>
           
               <h2>{anime.title}</h2>
-              <img src={anime.picture} alt={anime.title} width="200" />
+              <Link to={`/anime/${anime._id}`}>
+                <img src={anime.picture} alt={anime.title} width="200" />
+              </Link> 
            
           </li>
         ))}
