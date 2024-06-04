@@ -1,17 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import axios from 'axios';
+import { AuthContext } from '../context/auth.context'; // Adjust the import path as necessary
 
-function CommentForm({ animeId, onAddComment }) {
+function CommentForm({ animeId }) {
     const [content, setContent] = useState("");
+    const { user } = useContext(AuthContext); // Access the user from the context
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Replace 'user' with the current logged in user's ID.
-        const user = "currentUserId"; // Update this to get the actual logged in user's ID.
+        const userId = user._id; // Get the logged-in user's ID from context
 
-        axios.post('http://localhost:5005/api/comments', { user, anime: animeId, content })
+        axios.post('http://localhost:5005/api/comments', { user: userId, anime: animeId, content })
             .then(response => {
-                onAddComment(response.data.comment);
+                // onAddComment(response.data.comment);
                 setContent("");
             })
             .catch(error => {
