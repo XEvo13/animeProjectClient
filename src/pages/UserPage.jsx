@@ -1,11 +1,11 @@
-import Navbar from "../components/Navbar";
-import { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { AuthContext } from "../context/auth.context";
 import FriendsList from "../components/FriendsList";
 import AllUsersList from "../components/AllUsersList";
 import FriendsActions from "../components/FriendsActions";
+// import UserComments from "../components/UserComments"; // Import the new component
 
 const API_URL = "http://localhost:5005";
 
@@ -43,7 +43,6 @@ export default function UserPage() {
                 setUser(response.data.user);
             })
             .catch(error => {
-                // console.error("Failed to add friend");
                 setErrorMessage("Failed to add friend");
             });
     };
@@ -54,18 +53,18 @@ export default function UserPage() {
 
     return (
         <>
-            
+           
             <div className="UserPage">
                 <h1>{user.name}'s Page</h1>
                 {errorMessage && <p className="error-message">{errorMessage}</p>}
                 <p>Email: {user.email}</p>
                 <p>Friends: {user.friends.length}</p>
                 <p>Animes: {user.animes.length}</p>
-
                 
                 <FriendsList friends={user.friends} />
                 <AllUsersList allUsers={allUsers} userFriends={user.friends} addFriend={handleAddFriend} />
-                <FriendsActions userId={userId}/>
+                <FriendsActions userId={userId} />
+                {/* <UserComments /> No need to pass userId as a prop */}
             </div>
         </>
     );
