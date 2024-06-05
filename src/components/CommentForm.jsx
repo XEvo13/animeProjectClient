@@ -23,7 +23,7 @@ function CommentForm({ animeId, onAddComment }) {
       .catch(error => {
         console.error("Error fetching existing comment:", error);
       });
-  }, [animeId, user._id]);
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -75,7 +75,7 @@ function CommentForm({ animeId, onAddComment }) {
 
   return (
     <form onSubmit={handleSubmit}>
-      <textarea 
+      <textarea
         value={content}
         onChange={(e) => setContent(e.target.value)}
         placeholder="Add a comment"
