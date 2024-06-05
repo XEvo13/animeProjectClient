@@ -11,7 +11,7 @@ function RatingForm({ animeId, onAddRating }) {
         const userId = user._id; // Get the logged-in user's ID from context
 
         axios
-            .get(`http://localhost:5005/api/ratings/${animeId}/${userId}`)
+            .get(`https://animeprojectserver.onrender.com/api/ratings/${animeId}/${userId}`)
             .then((response) => {
                 if (response.data) {
                     setScore(response.data.score);

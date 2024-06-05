@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from "react";
-import authService from "../services/auth.service";
-const API_URL = "http://localhost:5005";
+
+import axios from "axios";
+import authService from "../services/auth.service"; // ADD
+const API_URL = "https://animeprojectserver.onrender.com";
+
+//import authService from "../services/auth.service";
+//const API_URL = "http://localhost:5005";
 
 const AuthContext = React.createContext();
 
