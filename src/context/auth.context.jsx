@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import authService from "../services/auth.service"; // ADD
-const API_URL = "http://localhost:5005";
+const API_URL = "https://animeprojectserver.onrender.com";
 
 const AuthContext = React.createContext();
 
