@@ -1,8 +1,13 @@
+import React, { useState } from "react";
+import axios from "axios";
+
+const API_URL = "http://localhost:5005";
+
 function RemoveFriend({ userId, setUser }) {
     const [friendId, setFriendId] = useState("");
 
     const handleRemoveFriend = () => {
-        axios.put(`${API_URL}/api/users/${userId}/unfriend/${friendId}`)
+        axios.put(`${API_URL}/api/${userId}/unfriend/${friendId}`)
             .then(response => {
                 setUser(response.data.user);
             })
@@ -24,3 +29,5 @@ function RemoveFriend({ userId, setUser }) {
         </div>
     );
 }
+
+export default RemoveFriend;
