@@ -57,6 +57,17 @@ export default function UserPage() {
             });
     };
 
+    const handleRemoveFriend = (friendId) => {
+        axios.put(`${API_URL}/api/${userId}/unfriend/${friendId}`)
+            .then(response => {
+                setUser(response.data.user);
+            })
+            .catch(error => {
+                setErrorMessage("Failed to remove friend");
+            });
+    };
+
+
     const handleFeeds = () => {
         // Combine comments and ratings by anime title and create a unique feed list
         const feeds = recentComments.map(comment => {
@@ -87,7 +98,6 @@ export default function UserPage() {
             <div className="flex flex-col mb-8">
                 <p>Email: {user.email}</p>
                 <p>Friends: {user.friends.length}</p>
-                {/* <p>Animes: {user.animes.length}</p> */}
             </div>
 
             <div className="flex flex-col mb-8">
@@ -108,7 +118,7 @@ export default function UserPage() {
             <div className="flex flex-row justify-between">
                 <div className="w-1/4">
                     <h2 className="text-xl font-semibold mb-2">Friends List</h2>
-                    <FriendsList friends={user.friends} />
+                    <FriendsList friends={user.friends} removeFriend={handleRemoveFriend} />
                 </div>
 
                 <div className="w-1/2 flex flex-col items-center">

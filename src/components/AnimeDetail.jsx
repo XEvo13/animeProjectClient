@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import axios from 'axios';
-import CommentForm from './CommentForm';
-import RatingForm from './RatingForm';
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import axios from "axios";
+import CommentForm from "./CommentForm";
+import RatingForm from "./RatingForm";
 
 function AnimeDetail() {
   const { id } = useParams();
@@ -11,35 +11,22 @@ function AnimeDetail() {
   const [ratings, setRatings] = useState([]);
 
   useEffect(() => {
-    axios.get(`http://localhost:5005/api/anime/${id}`)
-      .then(response => {
+    axios
+      .get(`http://localhost:5005/api/anime/${id}`)
+      .then((response) => {
         setAnime(response.data);
       })
-      .catch(error => {
-        console.error('Error fetching anime details:', error);
+      .catch((error) => {
+        console.error("Error fetching anime details:", error);
       });
-
-    // axios.get(`http://localhost:5005/api/comments/${id}`)
-    //   .then(response => {
-    //     setComments(response.data);
-    //   })
-    //   .catch(error => {
-    //     console.error('Error fetching comments:', error);
-    //   });
-
-    // axios.get(`http://localhost:5005/api/ratings/${id}`)
-    //   .then(response => {
-    //     setRatings(response.data);
-    //   })
-    //   .catch(error => {
-    //     console.error('Error fetching ratings:', error);
-    //   });
   }, [id]);
 
   const handleAddComment = (newComment) => {
     console.log("New comment to add/update:", newComment); // Debug logging
     setComments((prevComments) => {
-      const existingCommentIndex = prevComments.findIndex(comment => comment._id === newComment._id);
+      const existingCommentIndex = prevComments.findIndex(
+        (comment) => comment._id === newComment._id
+      );
       if (existingCommentIndex !== -1) {
         console.log("Updating existing comment:", newComment); // Debug logging
         const updatedComments = [...prevComments];
@@ -54,7 +41,9 @@ function AnimeDetail() {
   const handleAddRating = (newRating) => {
     console.log("New rating to add/update:", newRating); // Debug logging
     setRatings((prevRatings) => {
-      const existingRatingIndex = prevRatings.findIndex(rating => rating._id === newRating._id);
+      const existingRatingIndex = prevRatings.findIndex(
+        (rating) => rating._id === newRating._id
+      );
       if (existingRatingIndex !== -1) {
         console.log("Updating existing rating:", newRating); // Debug logging
         const updatedRatings = [...prevRatings];
@@ -76,10 +65,9 @@ function AnimeDetail() {
 
       <h2>Comments</h2>
       <ul>
-        {comments.map(comment => (
+        {comments.map((comment) => (
           <li key={comment._id}>
             <p>{comment.content}</p>
-            {/* <small>By: {comment.user.name}</small> */}
           </li>
         ))}
       </ul>
@@ -87,10 +75,9 @@ function AnimeDetail() {
 
       <h2>Ratings</h2>
       <ul>
-        {ratings.map(rating => (
+        {ratings.map((rating) => (
           <li key={rating._id}>
             <p>Score: {rating.score}</p>
-            {/* <small>By: {rating.user.name}</small> */}
           </li>
         ))}
       </ul>
