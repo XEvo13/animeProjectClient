@@ -59,6 +59,7 @@ function CommentForm({ animeId, onAddComment }) {
     }
   };
 
+
   const handleDelete = () => {
     if (existingCommentId && actionsId) {
       axios.delete(`http://localhost:5005/api/comments/${existingCommentId}/${actionsId}`)

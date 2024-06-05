@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import authService from "../services/auth.service"; // ADD
+import authService from "../services/auth.service";
 const API_URL = "http://localhost:5005";
 
 const AuthContext = React.createContext();

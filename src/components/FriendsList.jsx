@@ -1,4 +1,3 @@
-// FriendsList.jsx
 import React from 'react';
 
 const FriendsList = ({ friends, removeFriend }) => {
