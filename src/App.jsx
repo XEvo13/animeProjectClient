@@ -22,6 +22,7 @@ function App() {
         <Route path="/login" element={<IsAnon> <LoginPage /> </IsAnon>} />
         <Route path="/signup" element={<IsAnon> <SignupPage /> </IsAnon>} />
       </Routes>
+      
     </AuthProviderWrapper>
   );
 }
