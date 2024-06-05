@@ -12,7 +12,7 @@ function AnimeDetail() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5005/api/anime/${id}`)
+      .get(`https://animeprojectserver.onrender.com/api/anime/${id}`)
       .then((response) => {
         setAnime(response.data);
       })
