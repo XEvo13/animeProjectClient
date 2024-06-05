@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 const API_URL = "http://localhost:5005";
@@ -18,7 +19,7 @@ const FriendsActions = ({ userId }) => {
                 console.error("Failed to fetch friends' actions", error);
             });
     }, [userId]);
-
+  
     return (
         <div>
             <h2>Friends' Recent Actions</h2>
@@ -26,9 +27,11 @@ const FriendsActions = ({ userId }) => {
             <ul>
                 {actions.map(action => (
                     <li key={action._id}>
-                        <p><strong>{action.user.name}</strong> made a new <strong>{action.anime.name}</strong></p>
+                        
+                        <p><strong>{action.user.name}</strong> made a new <Link to={`/anime/${action.anime._id}`}><strong>{action.anime.title}</strong></Link></p>
                         {action.comment && <p>Comment: {action.comment.content}</p>}
                         {action.rating && <p>Rating: {action.rating.score}</p>}
+                        {/* <img src={`${action.anime.picture}` class="scale-0"}/> */}
                     </li>
                 ))}
             </ul>
