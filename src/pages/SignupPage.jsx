@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
+import authService from "../services/auth.service";
 
 const API_URL = "http://localhost:5005";
 
@@ -14,20 +14,23 @@ function SignupPage(props) {
   const [errorMessage, setErrorMessage] = useState(undefined);
 
   const navigate = useNavigate();
-  
-  const handleEmail = (e) =>{ 
+
+  const handleEmail = (e) => {
     console.log(e.target.value)
-    setEmail(e.target.value)};
+    setEmail(e.target.value)
+  };
 
   const handlePassword = (e) => {
-   
-    setPassword(e.target.value)};
+
+    setPassword(e.target.value)
+  };
 
   const handleName = (e) => {
     console.log(e.target.value)
-    setName(e.target.value)};
+    setName(e.target.value)
+  };
 
-  
+
   const handleSignupSubmit = (e) => {
     e.preventDefault();
     // Create an object representing the request body
@@ -37,7 +40,9 @@ function SignupPage(props) {
     // Make an axios request to the API
     // If the POST request is a successful redirect to the login page
     // If the request resolves with an error, set the error message in the state
-    axios.post(`${API_URL}/api/signup`, requestBody)
+    //axios.post(`${API_URL}/api/signup`, requestBody)
+
+    authService.signup(requestBody) //ADD
       .then((response) => {
         navigate('/login');
       })
@@ -47,14 +52,14 @@ function SignupPage(props) {
         setErrorMessage(errorDescription);
       })
   };
-  
+
   return (
     <div className="SignupPage">
       <h1>Sign Up</h1>
 
       <form onSubmit={handleSignupSubmit}>
         <label>Email:</label>
-        <input 
+        <input
           type="email"
           name="email"
           value={email}
@@ -62,7 +67,7 @@ function SignupPage(props) {
         />
 
         <label>Password:</label>
-        <input 
+        <input
           type="password"
           name="password"
           value={password}
@@ -70,7 +75,7 @@ function SignupPage(props) {
         />
 
         <label>Name:</label>
-        <input 
+        <input
           type="text"
           name="name"
           value={name}
@@ -80,7 +85,7 @@ function SignupPage(props) {
         <button type="submit">Sign Up</button>
       </form>
 
-      { errorMessage && <p className="error-message">{errorMessage}</p> }
+      {errorMessage && <p className="error-message">{errorMessage}</p>}
 
       <p>Already have account?</p>
       <Link to={"/login"}> Login</Link>

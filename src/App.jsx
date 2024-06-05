@@ -1,10 +1,5 @@
 import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
-
-// import axios from "axios";
-// import reactLogo from './assets/react.svg'
-// import viteLogo from '/vite.svg'
-
 import AnimeList from "./components/AnimeListing";
 import AnimeDetail from "./components/AnimeDetail";
 import SignupPage from "./pages/SignupPage";
@@ -21,9 +16,9 @@ function App() {
     <AuthProviderWrapper>
       <Navbar />
       <Routes>
-        <Route path="/" element={<IsPrivate>{" "}<AnimeList />{" "}</IsPrivate>}/>
-        <Route path="/:userId" element={<IsPrivate>{" "}<UserPage />{" "}</IsPrivate>}/>
-        <Route path="/anime/:id" element={<IsPrivate>{" "}<AnimeDetail />{" "}</IsPrivate>}/>
+        <Route path="/" element={<IsPrivate>{" "}<AnimeList />{" "}</IsPrivate>} />
+        <Route path="/:userId" element={<IsPrivate>{" "}<UserPage />{" "}</IsPrivate>} />
+        <Route path="/anime/:id" element={<IsPrivate>{" "}<AnimeDetail />{" "}</IsPrivate>} />
         <Route path="/login" element={<IsAnon> <LoginPage /> </IsAnon>} />
         <Route path="/signup" element={<IsAnon> <SignupPage /> </IsAnon>} />
       </Routes>
