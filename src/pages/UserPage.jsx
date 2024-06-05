@@ -12,6 +12,8 @@ export default function UserPage() {
     const { userId } = useParams();
     const [user, setUser] = useState(null);
     const [allUsers, setAllUsers] = useState([]);
+    const [recentComments, setRecentComments] = useState([]);
+    const [recentRatings, setRecentRatings] = useState([]);
     const [errorMessage, setErrorMessage] = useState(null);
     const { isLoggedIn } = useContext(AuthContext);
 
@@ -33,6 +35,15 @@ export default function UserPage() {
                 .catch(error => {
                     setErrorMessage("Failed to fetch all users");
                 });
+
+            axios.get(`${API_URL}/api/${userId}/feeds`)
+                .then(response => {
+                    setRecentComments(response.data.comments);
+                    setRecentRatings(response.data.ratings);
+                })
+                .catch(error => {
+                    setErrorMessage("Failed to fetch recent feeds");
+                });
         }
     }, [userId, isLoggedIn]);
 
@@ -46,20 +57,53 @@ export default function UserPage() {
             });
     };
 
+    const handleFeeds = () => {
+        // Combine comments and ratings by anime title and create a unique feed list
+        const feeds = recentComments.map(comment => {
+            const rating = recentRatings.find(rating => rating.anime.title === comment.anime.title);
+            return {
+                anime: comment.anime,
+                comment: comment.content,
+                rating: rating ? rating.score : null,
+            };
+        }).filter((feed, index, self) =>
+            index === self.findIndex(f => f.anime.title === feed.anime.title)
+        ).slice(0, 3); // Ensure unique animes and limit to 3
+
+        return feeds;
+    };
+
     if (!user) {
         return <div>Loading...</div>;
     }
+
+    const feeds = handleFeeds();
 
     return (
         <div className="UserPage p-4">
             <h1 className="text-2xl font-bold mb-4">{user.name}'s Page</h1>
             {errorMessage && <p className="text-red-500">{errorMessage}</p>}
-            
+
             <div className="flex flex-col mb-8">
                 <p>Email: {user.email}</p>
                 <p>Friends: {user.friends.length}</p>
                 <p>Animes: {user.animes.length}</p>
             </div>
+
+            <div className="flex flex-col mb-8">
+                <div className="mb-8">
+                    <h2 className="text-xl font-semibold mb-2">User Feeds</h2>
+                    {feeds.map(feed => (
+                        <div key={feed.anime._id} className="mb-4">
+                            <p><strong>Anime:</strong> {feed.anime.title}</p>
+                            <p><strong>Comment:</strong> {feed.comment}</p>
+                            {feed.rating && <p><strong>Rating:</strong> {feed.rating}</p>}
+                        </div>
+                    ))}
+                </div>
+            </div>
+
+
 
             <div className="flex flex-row justify-between">
                 <div className="w-1/4">
