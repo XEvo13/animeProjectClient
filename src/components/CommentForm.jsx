@@ -11,7 +11,7 @@ function CommentForm({ animeId, onAddComment }) {
   useEffect(() => {
     const userId = user._id; // Get the logged-in user's ID from context
 
-    axios.get(`http://localhost:5005/api/comments/${animeId}/${userId}`)
+    axios.get(`https://animeprojectserver.onrender.com/api/comments/${animeId}/${userId}`)
       .then(response => {
         if (response.data && response.data.comment) {
           const { comment, actionsId } = response.data;
@@ -33,7 +33,7 @@ function CommentForm({ animeId, onAddComment }) {
 
     if (existingCommentId) {
       // Update existing comment
-      axios.put(`http://localhost:5005/api/comments/${existingCommentId}`, { content, user: userId, actionsId })
+      axios.put(`https://animeprojectserver.onrender.com/api/comments/${existingCommentId}`, { content, user: userId, actionsId })
         .then(response => {
           setContent(response.data.comment.content);
           if (onAddComment) {
@@ -45,7 +45,7 @@ function CommentForm({ animeId, onAddComment }) {
         });
     } else {
       // Create new comment
-      axios.post('http://localhost:5005/api/comments', { user: userId, anime: animeId, content })
+      axios.post('https://animeprojectserver.onrender.com/api/comments', { user: userId, anime: animeId, content })
         .then(response => {
             console.log(response.data)
           setContent("");
@@ -63,7 +63,7 @@ function CommentForm({ animeId, onAddComment }) {
 
   const handleDelete = () => {
     if (existingCommentId && actionsId) {
-      axios.delete(`http://localhost:5005/api/comments/${existingCommentId}/${actionsId}`)
+      axios.delete(`https://animeprojectserver.onrender.com/api/comments/${existingCommentId}/${actionsId}`)
         .then(response => {
           setContent("");
           setExistingCommentId(null);
