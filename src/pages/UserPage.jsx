@@ -87,7 +87,7 @@ export default function UserPage() {
             <div className="flex flex-col mb-8">
                 <p>Email: {user.email}</p>
                 <p>Friends: {user.friends.length}</p>
-                <p>Animes: {user.animes.length}</p>
+                {/* <p>Animes: {user.animes.length}</p> */}
             </div>
 
             <div className="flex flex-col mb-8">

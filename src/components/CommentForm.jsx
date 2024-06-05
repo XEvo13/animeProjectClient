@@ -25,6 +25,8 @@ function CommentForm({ animeId, onAddComment }) {
       });
   }, []);
 
+//   animeId, user._id
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const userId = user._id; // Get the logged-in user's ID from context
@@ -45,6 +47,7 @@ function CommentForm({ animeId, onAddComment }) {
       // Create new comment
       axios.post('http://localhost:5005/api/comments', { user: userId, anime: animeId, content })
         .then(response => {
+            console.log(response.data)
           setContent("");
           setExistingCommentId(response.data.comment._id);
           setActionsId(response.data.action._id); // Assuming action ID is part of the response
