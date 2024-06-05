@@ -2,13 +2,12 @@ import React, { useState, useContext, useEffect } from "react";
 import axios from "axios";
 import { AuthContext } from "../context/auth.context"; // Adjust the import path as necessary
 
-function RatingForm({ animeId }) {
+function RatingForm({ animeId, onAddRating }) {
     const [score, setScore] = useState(0);
     const [existingRatingId, setExistingRatingId] = useState(null);
     const { user } = useContext(AuthContext); // Access the user from the context
 
     useEffect(() => {
-        // Fetch the existing rating if available
         const userId = user._id; // Get the logged-in user's ID from context
 
         axios
@@ -20,7 +19,7 @@ function RatingForm({ animeId }) {
                 }
             })
             .catch((error) => {
-                console.error("Error fetching existing comment:", error);
+                console.error("Error fetching existing rating:", error);
             });
     }, [animeId, user._id]);
 
@@ -30,20 +29,20 @@ function RatingForm({ animeId }) {
 
         if (existingRatingId) {
             axios
-                .put("http://localhost:5005/api/ratings", {
+                .put(`http://localhost:5005/api/ratings/${existingRatingId}`, {
                     user: userId,
                     anime: animeId,
                     score,
                 })
                 .then((response) => {
-                    /* onAddRating(response.data.rating); */
-                    setScore(0);
+                    if (onAddRating) {
+                        onAddRating(response.data.rating); // Pass updated rating to handler
+                    }
                 })
                 .catch((error) => {
-                    console.error("Error adding rating:", error);
+                    console.error("Error updating rating:", error);
                 });
         } else {
-            // Create new rating
             axios
                 .post("http://localhost:5005/api/ratings", {
                     user: userId,
@@ -53,9 +52,12 @@ function RatingForm({ animeId }) {
                 .then((response) => {
                     setScore(0);
                     setExistingRatingId(response.data.rating._id);
+                    if (onAddRating) {
+                        onAddRating(response.data.rating); // Pass new rating to handler
+                    }
                 })
                 .catch((error) => {
-                    console.error("Error adding a rating:", error);
+                    console.error("Error adding rating:", error);
                 });
         }
     };
@@ -89,8 +91,6 @@ function RatingForm({ animeId }) {
                         />
                         <label htmlFor={`star${value}`}>{value}</label>
                     </React.Fragment>
-                    //it allows grouping a list of children elements
-                    //without adding extra nodes to the DOM
                 ))}
             </div>
             <button type="submit">

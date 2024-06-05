@@ -19,8 +19,6 @@ function AnimeDetail() {
         console.error('Error fetching anime details:', error);
       });
 
-
-      
     // axios.get(`http://localhost:5005/api/comments/${id}`)
     //   .then(response => {
     //     setComments(response.data);
@@ -39,11 +37,33 @@ function AnimeDetail() {
   }, [id]);
 
   const handleAddComment = (newComment) => {
-    setComments([...comments, newComment]);
+    console.log("New comment to add/update:", newComment); // Debug logging
+    setComments((prevComments) => {
+      const existingCommentIndex = prevComments.findIndex(comment => comment._id === newComment._id);
+      if (existingCommentIndex !== -1) {
+        console.log("Updating existing comment:", newComment); // Debug logging
+        const updatedComments = [...prevComments];
+        updatedComments[existingCommentIndex] = newComment;
+        return updatedComments;
+      }
+      console.log("Adding new comment:", newComment); // Debug logging
+      return [...prevComments, newComment];
+    });
   };
 
   const handleAddRating = (newRating) => {
-    setRatings([...ratings, newRating]);
+    console.log("New rating to add/update:", newRating); // Debug logging
+    setRatings((prevRatings) => {
+      const existingRatingIndex = prevRatings.findIndex(rating => rating._id === newRating._id);
+      if (existingRatingIndex !== -1) {
+        console.log("Updating existing rating:", newRating); // Debug logging
+        const updatedRatings = [...prevRatings];
+        updatedRatings[existingRatingIndex] = newRating;
+        return updatedRatings;
+      }
+      console.log("Adding new rating:", newRating); // Debug logging
+      return [...prevRatings, newRating];
+    });
   };
 
   if (!anime) return <p>Loading...</p>;
@@ -70,7 +90,7 @@ function AnimeDetail() {
         {ratings.map(rating => (
           <li key={rating._id}>
             <p>Score: {rating.score}</p>
-            <small>By: {rating.user.name}</small>
+            {/* <small>By: {rating.user.name}</small> */}
           </li>
         ))}
       </ul>
