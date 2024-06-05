@@ -1,5 +1,6 @@
 import { useState, useContext } from "react";
-import axios from "axios";
+//import axios from "axios";
+import authService from "../services/auth.service";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/auth.context";
 
@@ -23,7 +24,8 @@ function LoginPage(props) {
         e.preventDefault();
         const requestBody = { email, password };
 
-        axios.post(`${API_URL}/auth/login`, requestBody)
+        //axios.post(`${API_URL}/auth/login`, requestBody)
+        authService.login(requestBody) //ADD
             .then((response) => {
                 // const userId = response.data.user._id
 
