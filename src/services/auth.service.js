@@ -4,7 +4,7 @@ class AuthService {
   constructor() {
     // Create a new instance of axios with a custom configuration
     this.api = axios.create({
-      baseURL: import.meta.env.SERVER_URL || "https://animeprojectserver.onrender.com"
+      baseURL: import.meta.env.SERVER_URL || "https://anime.adaptable.app"
       // We set our API's base URL so that all requests use the same base URL
     });
 

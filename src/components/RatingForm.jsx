@@ -44,7 +44,7 @@ function RatingForm({ animeId, onAddRating }) {
                 });
         } else {
             axios
-                .post("https://animeprojectserver.onrender.com/api/ratings", {
+                .post("https://anime.adaptable.app/api/ratings", {
                     user: userId,
                     anime: animeId,
                     score,
@@ -65,7 +65,7 @@ function RatingForm({ animeId, onAddRating }) {
     const handleDelete = () => {
         if (existingRatingId) {
             axios
-                .delete(`https://animeprojectserver.onrender.com/api/ratings/${existingRatingId}`)
+                .delete(`https://anime.adaptable.app/api/ratings/${existingRatingId}`)
                 .then((response) => {
                     setScore(0);
                     setExistingRatingId(null);
