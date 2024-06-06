@@ -18,23 +18,28 @@ function AnimeList() {
   }, []);
 
   return (
-    <div>
-      <h1>Anime List</h1>
-      <ul className="grid grid-cols-4">
-  {animes.map(anime => {
-    if (anime.picture) {
-      return (
-        <li key={anime._id}>
-          <h2 className="mr-4">{anime.title}</h2>
-          <Link to={`/anime/${anime._id}`}>
-            <img src={anime.picture} alt={anime.title} width="200" />
-          </Link>
-        </li>
-      );
-    }
-    return null; 
-  })}
-</ul>
+    <div className="min-h-screen bg-gray-100 py-12 px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto">
+        <h1 className="text-center text-4xl font-bold leading-9 tracking-tight text-gray-900 mb-8">Anime List</h1>
+        <ul className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
+          {animes.map(anime => {
+            if (anime.picture) {
+              return (
+                <li
+                  key={anime._id}
+                  className="bg-white rounded-lg shadow-lg overflow-hidden transition-transform duration-300 ease-in-out transform hover:scale-105"
+                >
+                  <Link to={`/anime/${anime._id}`} className="block h-full">
+                    <img src={anime.picture} alt={anime.title} className="w-full h-48 object-cover" />
+                    <h2 className="p-4 text-center text-lg font-semibold text-gray-900 truncate">{anime.title}</h2>
+                  </Link>
+                </li>
+              );
+            }
+            return null;
+          })}
+        </ul>
+      </div>
     </div>
   );
 }
