@@ -26,7 +26,7 @@ function LoginPage(props) {
         authService.login(requestBody) //ADD
             .then((response) => {
 
-               
+
 
                 storeToken(response.data.authToken);
 
@@ -41,34 +41,74 @@ function LoginPage(props) {
     };
 
     return (
-        <div className="LoginPage">
-            <h1>Login</h1>
+        <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
+            <div className="sm:mx-auto sm:w-full sm:max-w-sm">
+                <h1 className="text-center text-3xl pb-8 font-bold leading-9 tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-orange-400 via-red-600 to-red-700">
+                    Login
+                </h1>
+            </div>
 
-            <form onSubmit={handleLoginSubmit}>
-                <label>Email:</label>
-                <input
-                    type="email"
-                    name="email"
-                    value={email}
-                    onChange={handleEmail}
-                />
+            <div className="mt-15 sm:mx-auto sm:w-full sm:max-w-sm">
+                <form className="space-y-6" onSubmit={handleLoginSubmit}>
+                    <div>
+                        <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
+                            Email:
+                        </label>
+                        <div className="mt-2">
+                            <input
+                                id="email"
+                                type="email"
+                                name="email"
+                                value={email}
+                                onChange={handleEmail}
+                                required
+                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                            />
+                        </div>
+                    </div>
 
-                <label>Password:</label>
-                <input
-                    type="password"
-                    name="password"
-                    value={password}
-                    onChange={handlePassword}
-                />
+                    <div>
+                        <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
+                            Password:
+                        </label>
+                        <div className="mt-2">
+                            <input
+                                id="password"
+                                type="password"
+                                name="password"
+                                value={password}
+                                onChange={handlePassword}
+                                required
+                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                            />
+                        </div>
+                    </div>
 
-                <button type="submit">Login</button>
-            </form>
-            {errorMessage && <p className="error-message">{errorMessage}</p>}
+                    <div>
+                        <button
+                            type="submit"
+                            className="flex w-full justify-center rounded-md bg-gradient-to-r from-orange-400 via-red-600 to-red-700 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:from-orange-500 hover:via-red-700 hover:to-red-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                        >
+                            Login
+                        </button>
+                    </div>
+                </form>
 
-            <p>Don't have an account yet?</p>
-            <Link to={"/signup"}> Sign Up</Link>
+                <div className="mt-10 text-center text-sm text-gray-500">
+                    {errorMessage && <p className="error-message text-red-500 mb-4">{errorMessage}</p>}
+                    <p>Don't have an account yet?{' '}
+                        <Link
+                            to="/signup"
+                            className="inline-block mt-4 w-full text-center rounded-md bg-gradient-to-r from-orange-400 via-red-600 to-red-700 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:from-orange-500 hover:via-red-700 hover:to-red-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                        >
+                            Sign Up
+                        </Link>
+                    </p>
+                </div>
+            </div>
         </div>
-    )
+    );
 }
+
 
 export default LoginPage;
