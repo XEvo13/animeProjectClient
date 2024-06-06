@@ -7,9 +7,13 @@ function Navbar() {
     const { isLoggedIn, user, logOutUser } = useContext(AuthContext);
 
     return (
-        <nav className="h-24 bg-gradient-to-r from-orange-400 via-red-600 to-orange-500 flex items-center justify-between px-4">
-            <img src="/otaku.png" className="h-24"/>
+        <nav className="h-24 bg-gradient-to-r from-orange-400 via-red-600 to-red-700 flex items-center justify-between px-4">
             <div className="flex items-center">
+                <img src="/otaku.png" className="h-24"/>
+                <div className="text-xs sm:text-xl  md:text-4xl ml-2  text-white">OTAKU LIBRARY</div>
+            </div>
+            <div className="text-xs mr-0 flex items-center sm:text-xl sm:mr-10 text-white">
+               
                 {isLoggedIn && (
                     <>
                         
