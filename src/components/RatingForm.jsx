@@ -11,7 +11,7 @@ function RatingForm({ animeId, onAddRating }) {
         const userId = user._id; // Get the logged-in user's ID from context
 
         axios
-            .get(`https://anime.adaptable.app/api/ratings/${animeId}/${userId}`)
+            .get(`http://localhost:5005/api/ratings/${animeId}/${userId}`)
             .then((response) => {
                 if (response.data) {
                     setScore(response.data.score);
@@ -29,7 +29,7 @@ function RatingForm({ animeId, onAddRating }) {
 
         if (existingRatingId) {
             axios
-                .put(`https://anime.adaptable.app/api/ratings/${existingRatingId}`, {
+                .put(`http://localhost:5005/api/ratings/${existingRatingId}`, {
                     user: userId,
                     anime: animeId,
                     score,
@@ -44,7 +44,7 @@ function RatingForm({ animeId, onAddRating }) {
                 });
         } else {
             axios
-                .post("https://anime.adaptable.app/api/ratings", {
+                .post("http://localhost:5005/api/ratings", {
                     user: userId,
                     anime: animeId,
                     score,
@@ -65,7 +65,7 @@ function RatingForm({ animeId, onAddRating }) {
     const handleDelete = () => {
         if (existingRatingId) {
             axios
-                .delete(`https://anime.adaptable.app/api/ratings/${existingRatingId}`)
+                .delete(`http://localhost:5005/api/ratings/${existingRatingId}`)
                 .then((response) => {
                     setScore(0);
                     setExistingRatingId(null);

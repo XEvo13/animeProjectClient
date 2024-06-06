@@ -4,7 +4,7 @@ class AuthService {
   constructor() {
     // Create a new instance of axios with a custom configuration
     this.api = axios.create({
-      baseURL: import.meta.env.VITE_SERVER_URL || "https://anime.adaptable.app"
+      baseURL: import.meta.env.VITE_SERVER_URL || "http://localhost:5005"
 
       //  ---------------A
 

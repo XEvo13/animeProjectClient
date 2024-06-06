@@ -3,7 +3,7 @@ import authService from "../services/auth.service";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/auth.context";
 
-const API_URL = "https://anime.adaptable.app";
+const API_URL = "http://localhost:5005";
 
 function LoginPage(props) {
     const [email, setEmail] = useState("");
