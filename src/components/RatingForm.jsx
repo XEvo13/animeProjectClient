@@ -29,7 +29,7 @@ function RatingForm({ animeId, onAddRating }) {
 
         if (existingRatingId) {
             axios
-                .put(`http://localhost:5005/api/ratings/${existingRatingId}`, {
+                .put(`https://animeprojectserver.onrender.com/api/ratings/${existingRatingId}`, {
                     user: userId,
                     anime: animeId,
                     score,
@@ -44,7 +44,7 @@ function RatingForm({ animeId, onAddRating }) {
                 });
         } else {
             axios
-                .post("http://localhost:5005/api/ratings", {
+                .post("https://animeprojectserver.onrender.com/api/ratings", {
                     user: userId,
                     anime: animeId,
                     score,
@@ -65,7 +65,7 @@ function RatingForm({ animeId, onAddRating }) {
     const handleDelete = () => {
         if (existingRatingId) {
             axios
-                .delete(`http://localhost:5005/api/ratings/${existingRatingId}`)
+                .delete(`https://animeprojectserver.onrender.com/api/ratings/${existingRatingId}`)
                 .then((response) => {
                     setScore(0);
                     setExistingRatingId(null);
