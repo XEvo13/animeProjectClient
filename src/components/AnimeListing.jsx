@@ -7,7 +7,7 @@ function AnimeList() {
   const [animes, setAnimes] = useState([]);
 
   useEffect(() => {
-    axios.get('https://animeprojectserver.onrender.com/api/animes')
+    axios.get('https://anime.adaptable.app/api/animes')
       .then(response => {
         console.log(response.data)
         setAnimes(response.data);

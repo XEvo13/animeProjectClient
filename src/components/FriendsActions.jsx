@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-const API_URL = "https://animeprojectserver.onrender.com";
+const API_URL = "https://anime.adaptable.app";
 
 const FriendsActions = ({ userId }) => {
     const [actions, setActions] = useState([]);
