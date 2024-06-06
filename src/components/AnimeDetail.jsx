@@ -14,7 +14,7 @@ function AnimeDetail() {
   // const API_URL = "http://localhost:5005"
   useEffect(() => {
     axios
-      .get(`https://anime.adaptable.app/api/anime/${id}`)
+      .get(`http://localhost:5005/api/anime/${id}`)
       .then((response) => {
         setAnime(response.data);
       })

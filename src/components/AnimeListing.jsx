@@ -7,7 +7,7 @@ function AnimeList() {
   const [animes, setAnimes] = useState([]);
 
   useEffect(() => {
-    axios.get('https://anime.adaptable.app/api/animes')
+    axios.get('http://localhost:5005/api/animes')
       .then(response => {
         console.log(response.data)
         setAnimes(response.data);
