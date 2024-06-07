@@ -3,7 +3,7 @@ import React from 'react';
 const FriendsList = ({ friends, removeFriend }) => {
     return (
         <div>
-            <h2>Friends List</h2>
+            {/* <h2>Friends List</h2> */}
             <ul>
                 {friends.map(friend => (
                     <li

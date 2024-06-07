@@ -60,9 +60,10 @@ function AnimeDetail() {
   if (!anime) return <p>Loading...</p>;
 
   return (
-    <div>
+    
+    <div className="ml-10">
       <h1>{anime.title}</h1>
-      <img src={anime.picture} alt={anime.title} width="200" />
+      <img className="shadow-lg" src={anime.picture} alt={anime.title} width="200" />
       <p>Episodes: {anime.episodes}</p>
 
       <h2>Comments</h2>
@@ -73,7 +74,9 @@ function AnimeDetail() {
           </li>
         ))}
       </ul>
-      <CommentForm animeId={id} onAddComment={handleAddComment} />
+      
+      <CommentForm  animeId={id} onAddComment={handleAddComment} />
+      
 
       <h2>Ratings</h2>
       <ul>

@@ -38,6 +38,7 @@ export default function UserPage() {
 
             axios.get(`${API_URL}/api/${userId}/feeds`)
                 .then(response => {
+                    console.log(response.data.comments)
                     setRecentComments(response.data.comments);
                     setRecentRatings(response.data.ratings);
                 })
@@ -100,9 +101,9 @@ export default function UserPage() {
                 <p>Friends: {user.friends.length}</p>
             </div>
 
-            <div className="flex flex-col mb-8">
+            <div className="flex  mb-8">
                 <div className="mb-8">
-                    <h2 className="text-xl font-semibold mb-2">User Feeds</h2>
+                    <h2 className="text-xl font-semibold mb-2">User Feed</h2>
                     {feeds.map(feed => (
                         <div key={feed.anime._id} className="mb-4">
                             <p><strong>Anime:</strong> {feed.anime.title}</p>
@@ -111,24 +112,27 @@ export default function UserPage() {
                         </div>
                     ))}
                 </div>
+                <img src="/ichigo.png" className="h-60 ml-8"/>
             </div>
 
 
 
-            <div className="flex flex-row justify-between">
-                <div className="w-1/4">
-                    <h2 className="text-xl font-semibold mb-2">Friends List</h2>
+            <div className="flex flex-row justify-between text-4xl pb-4 text-white bg-gradient-to-r from-orange-400 via-red-600 to-red-700 border-black rounded-md border-2">
+                <div className="w-1/4 ml-6">
+                    <h2 className="text-4xl font-semibold mb-2">  Friends </h2>
                     <FriendsList friends={user.friends} removeFriend={handleRemoveFriend} />
                 </div>
 
                 <div className="w-1/2 flex flex-col items-center">
-                    <h2 className="text-xl font-semibold mb-2">Friends Actions</h2>
+                    <h2 className="text-4xl font-semibold mb-2 ">  Friends Actions</h2>
                     <FriendsActions userId={userId} />
                 </div>
 
-                <div className="w-1/4">
-                    <h2 className="text-xl font-semibold mb-2">Add Friends</h2>
+                <div className="w-1/4 ">
+                    <div className="mr-6 text-right">
+                    <h2 className="text-4xl font-semibold mb-2">Add  Friends</h2>
                     <AllUsersList allUsers={allUsers} userFriends={user.friends} addFriend={handleAddFriend} />
+                    </div>
                 </div>
             </div>
         </div>
