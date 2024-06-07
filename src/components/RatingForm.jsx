@@ -77,8 +77,8 @@ function RatingForm({ animeId, onAddRating }) {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <div>
+        <form onSubmit={handleSubmit} className="flex flex-col items-center w-full p-4 bg-white rounded-lg shadow-md">
+            <div className="flex space-x-2 mb-4">
                 {[5, 4, 3, 2, 1].map((value) => (
                     <React.Fragment key={value}>
                         <input
@@ -88,16 +88,19 @@ function RatingForm({ animeId, onAddRating }) {
                             value={value}
                             checked={score === value}
                             onChange={() => setScore(value)}
+                            className="hidden"
                         />
-                        <label htmlFor={`star${value}`}>{value}</label>
+                        <label htmlFor={`star${value}`} className={`cursor-pointer text-2xl text-gray-400 ${score >= value ? "text-yellow-500" : ""}`}>
+                            ★
+                        </label>
                     </React.Fragment>
                 ))}
             </div>
-            <button type="submit">
+            <button type="submit" className="w-full py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-gradient-to-r from-orange-400 to-red-500 hover:from-red-500 hover:to-orange-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500">
                 {existingRatingId ? "Update Rating" : "Submit Rating"}
             </button>
             {existingRatingId && (
-                <button type="button" onClick={handleDelete}>
+                <button type="button" onClick={handleDelete} className="w-full py-2 px-4 mt-2 border border-transparent text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
                     Delete Rating
                 </button>
             )}

@@ -57,36 +57,51 @@ function AnimeDetail() {
     });
   };
 
-  if (!anime) return <p>Loading...</p>;
+  if (!anime) return <p className="text-center text-gray-700">Loading...</p>;
 
   return (
-    
-    <div className="ml-10">
-      <h1>{anime.title}</h1>
-      <img className="shadow-lg" src={anime.picture} alt={anime.title} width="200" />
-      <p>Episodes: {anime.episodes}</p>
+    <div className="relative min-h-screen bg-gray-100 py-12 px-6 lg:px-8 flex flex-col items-center">
+      <div className="fixed top-24 left-0 lg:left-8 h-70 lg:mr-8 mb-4 lg:mb-0 mt-12">
+        <img src="/zenitsu.png" className="h-full object-cover" alt="Left Image" />
+      </div>
+      <div className="fixed top-24 right-0 lg:right-8 h-70 lg:ml-8 mb-4 lg:mb-0 mt-12">
+        <img src="/naruto.png" className="h-full object-cover" alt="Right Image" />
+      </div>
+      <div className="max-w-4xl w-full bg-white p-8 rounded-lg shadow-lg z-10">
+        <h1 className="text-center text-3xl pb-8 font-bold leading-9 tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-orange-400 via-red-600 to-red-700 mb-4">{anime.title}</h1>
+        <div className="flex justify-center mb-8 mt-6">
+          <img className="w-80 h-80 object-cover rounded-lg shadow-lg" src={anime.picture} alt={anime.title} />
+        </div>
+        <p className="text-center text-gray-700 mb-8">Episodes: {anime.episodes}</p>
 
-      <h2>Comments</h2>
-      <ul>
-        {comments.map((comment) => (
-          <li key={comment._id}>
-            <p>{comment.content}</p>
-          </li>
-        ))}
-      </ul>
-      
-      <CommentForm  animeId={id} onAddComment={handleAddComment} />
-      
+        <div className="mb-8">
+          <h2 className="text-center text-3xl pb-8 font-bold leading-9 tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-orange-400 via-red-600 to-red-700 mb-4">Comments</h2>
+          <ul className="space-y-4 mt-6">
+            {comments.map((comment) => (
+              <li key={comment._id} className="bg-gray-100 p-6 rounded-lg shadow-md">
+                <p className="text-gray-700">{comment.content}</p>
+              </li>
+            ))}
+          </ul>
+          <div className="mt-6 flex justify-center">
+            <CommentForm animeId={id} onAddComment={handleAddComment} />
+          </div>
+        </div>
 
-      <h2>Ratings</h2>
-      <ul>
-        {ratings.map((rating) => (
-          <li key={rating._id}>
-            <p>Score: {rating.score}</p>
-          </li>
-        ))}
-      </ul>
-      <RatingForm animeId={id} onAddRating={handleAddRating} />
+        <div>
+          <h2 className="text-center text-3xl pb-8 font-bold leading-9 tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-orange-400 via-red-600 to-red-700 mb-4">Ratings</h2>
+          <ul className="space-y-4 mt-6">
+            {ratings.map((rating) => (
+              <li key={rating._id} className="bg-gray-100 p-6 rounded-lg shadow-md">
+                <p className="text-gray-700">Score: {rating.score}</p>
+              </li>
+            ))}
+          </ul>
+          <div className="mt-6 flex justify-center">
+            <RatingForm animeId={id} onAddRating={handleAddRating} />
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

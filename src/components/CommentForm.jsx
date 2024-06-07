@@ -77,27 +77,25 @@ function CommentForm({ animeId, onAddComment }) {
 
 
   return (
-    <div className='flex flex-row w-1/4 text-4xs pb-4 bg-gradient-to-r from-orange-400 via-red-600 to-red-700 border-black rounded-md border-2'>
-    <form onSubmit={handleSubmit} className="flex flex-col w-full p-4">
-      <textarea
-        value={content}
-        onChange={(e) => setContent(e.target.value)}
-        placeholder="Add a comment"
-        className="w-full p-2 mb-4 border rounded"
-      ></textarea>
-      <button type="submit" className="mb-2 bg-orange-400 text-white py-1 px-4  border-black border-2 rounded">
-        {existingCommentId ? "Update Comment" : "Submit Comment"}
-      </button>
-      {existingCommentId && (
-        <button type="button" onClick={handleDelete} className="bg-red-600  text-white py-1 border-black border-2 px-4 rounded">
-          Delete Comment
+    <div className="w-full max-w-lg">
+      <form onSubmit={handleSubmit} className="flex flex-col w-full p-4 bg-white rounded-lg shadow-md">
+        <textarea
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
+          placeholder="Add a comment"
+          className="w-full p-2 mb-4 border rounded"
+        ></textarea>
+        <button type="submit" className="w-full flex justify-center py-1.5 px-3 border border-transparent text-sm font-medium rounded-md text-white bg-gradient-to-r from-orange-400 to-red-500 hover:from-red-500 hover:to-orange-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500">
+          {existingCommentId ? "Update Comment" : "Submit Comment"}
         </button>
-      )}
-    </form>
-  </div>
-  
+        {existingCommentId && (
+          <button type="button" onClick={handleDelete} className="w-full flex justify-center py-1.5 px-3 mt-2 border border-transparent text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+            Delete Comment
+          </button>
+        )}
+      </form>
+    </div>
   );
-
 }
 
 export default CommentForm;
