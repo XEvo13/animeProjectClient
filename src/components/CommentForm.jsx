@@ -1,23 +1,23 @@
 import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
-import { AuthContext } from '../context/auth.context'; // Adjust the import path as necessary
+import { AuthContext } from '../context/auth.context'; 
 
 function CommentForm({ animeId, onAddComment }) {
   const [content, setContent] = useState("");
   const [existingCommentId, setExistingCommentId] = useState(null);
   const [actionsId, setActionsId] = useState(null);
-  const { user } = useContext(AuthContext); // Access the user from the context
+  const { user } = useContext(AuthContext); 
 
   useEffect(() => {
-    const userId = user._id; // Get the logged-in user's ID from context
+    const userId = user._id; 
 
-    axios.get(`http://localhost:5005/api/comments/${animeId}/${userId}`)
+    axios.get(`https://anime.adaptable.app/api/comments/${animeId}/${userId}`)
       .then(response => {
         if (response.data && response.data.comment) {
           const { comment, actionsId } = response.data;
           setContent(comment.content);
           setExistingCommentId(comment._id);
-          setActionsId(actionsId); // Set the actionsId if available
+          setActionsId(actionsId); 
         }
       })
       .catch(error => {
@@ -27,16 +27,16 @@ function CommentForm({ animeId, onAddComment }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const userId = user._id; // Get the logged-in user's ID from context
+    const userId = user._id; 
 
     if (existingCommentId) {
-      // Update existing comment
-      axios.put(`http://localhost:5005/api/comments/${existingCommentId}`, { content, user: userId, actionsId })
+      
+      axios.put(`https://anime.adaptable.app/api/comments/${existingCommentId}`, { content, user: userId, actionsId })
         .then(response => {
           setContent("");
           // setContent(response.data.comment.content);
           if (onAddComment) {
-            onAddComment(response.data.comment); // Pass updated comment to handler
+            onAddComment(response.data.comment);
           }
         })
         .catch(error => {
@@ -44,14 +44,14 @@ function CommentForm({ animeId, onAddComment }) {
         });
     } else {
       // Create new comment
-      axios.post('http://localhost:5005/api/comments', { user: userId, anime: animeId, content })
+      axios.post('https://anime.adaptable.app/api/comments', { user: userId, anime: animeId, content })
         .then(response => {
           console.log(response.data)
           setContent("");
           setExistingCommentId(response.data.comment._id);
-          setActionsId(response.data.action._id); // Assuming action ID is part of the response
+          setActionsId(response.data.action._id); 
           if (onAddComment) {
-            onAddComment(response.data.comment); // Pass new comment to handler
+            onAddComment(response.data.comment); 
           }
         })
         .catch(error => {

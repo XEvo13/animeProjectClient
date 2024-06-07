@@ -14,7 +14,7 @@ function AnimeDetail() {
   // const API_URL = "http://localhost:5005"
   useEffect(() => {
     axios
-      .get(`http://localhost:5005/api/anime/${id}`)
+      .get(`https://anime.adaptable.app/api/anime/${id}`)
       .then((response) => {
         setAnime(response.data);
       })
@@ -24,35 +24,35 @@ function AnimeDetail() {
   }, [id]);
 
   const handleAddComment = (newComment) => {
-    console.log("New comment to add/update:", newComment); // Debug logging
+    console.log("New comment to add/update:", newComment); 
     setComments((prevComments) => {
       const existingCommentIndex = prevComments.findIndex(
         (comment) => comment._id === newComment._id
       );
       if (existingCommentIndex !== -1) {
-        console.log("Updating existing comment:", newComment); // Debug logging
+        console.log("Updating existing comment:", newComment); 
         const updatedComments = [...prevComments];
         updatedComments[existingCommentIndex] = newComment;
         return updatedComments;
       }
-      console.log("Adding new comment:", newComment); // Debug logging
+      console.log("Adding new comment:", newComment); 
       return [...prevComments, newComment];
     });
   };
 
   const handleAddRating = (newRating) => {
-    console.log("New rating to add/update:", newRating); // Debug logging
+    console.log("New rating to add/update:", newRating); 
     setRatings((prevRatings) => {
       const existingRatingIndex = prevRatings.findIndex(
         (rating) => rating._id === newRating._id
       );
       if (existingRatingIndex !== -1) {
-        console.log("Updating existing rating:", newRating); // Debug logging
+        console.log("Updating existing rating:", newRating); 
         const updatedRatings = [...prevRatings];
         updatedRatings[existingRatingIndex] = newRating;
         return updatedRatings;
       }
-      console.log("Adding new rating:", newRating); // Debug logging
+      console.log("Adding new rating:", newRating); 
       return [...prevRatings, newRating];
     });
   };

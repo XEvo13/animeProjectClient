@@ -1,17 +1,17 @@
 import React, { useState, useContext, useEffect } from "react";
 import axios from "axios";
-import { AuthContext } from "../context/auth.context"; // Adjust the import path as necessary
+import { AuthContext } from "../context/auth.context"; 
 
 function RatingForm({ animeId, onAddRating }) {
     const [score, setScore] = useState(0);
     const [existingRatingId, setExistingRatingId] = useState(null);
-    const { user } = useContext(AuthContext); // Access the user from the context
+    const { user } = useContext(AuthContext); 
 
     useEffect(() => {
-        const userId = user._id; // Get the logged-in user's ID from context
+        const userId = user._id; 
 
         axios
-            .get(`http://localhost:5005/api/ratings/${animeId}/${userId}`)
+            .get(`https://anime.adaptable.app/api/ratings/${animeId}/${userId}`)
             .then((response) => {
                 if (response.data) {
                     setScore(response.data.score);
@@ -29,14 +29,14 @@ function RatingForm({ animeId, onAddRating }) {
 
         if (existingRatingId) {
             axios
-                .put(`http://localhost:5005/api/ratings/${existingRatingId}`, {
+                .put(`https://anime.adaptable.app/api/ratings/${existingRatingId}`, {
                     user: userId,
                     anime: animeId,
                     score,
                 })
                 .then((response) => {
                     if (onAddRating) {
-                        onAddRating(response.data.rating); // Pass updated rating to handler
+                        onAddRating(response.data.rating); 
                     }
                 })
                 .catch((error) => {
@@ -44,7 +44,7 @@ function RatingForm({ animeId, onAddRating }) {
                 });
         } else {
             axios
-                .post("http://localhost:5005/api/ratings", {
+                .post("https://anime.adaptable.app/api/ratings", {
                     user: userId,
                     anime: animeId,
                     score,
@@ -53,7 +53,7 @@ function RatingForm({ animeId, onAddRating }) {
                     setScore(0);
                     setExistingRatingId(response.data.rating._id);
                     if (onAddRating) {
-                        onAddRating(response.data.rating); // Pass new rating to handler
+                        onAddRating(response.data.rating);
                     }
                 })
                 .catch((error) => {
@@ -65,7 +65,7 @@ function RatingForm({ animeId, onAddRating }) {
     const handleDelete = () => {
         if (existingRatingId) {
             axios
-                .delete(`http://localhost:5005/api/ratings/${existingRatingId}`)
+                .delete(`https://anime.adaptable.app/api/ratings/${existingRatingId}`)
                 .then((response) => {
                     setScore(0);
                     setExistingRatingId(null);
