@@ -6,7 +6,7 @@ import FriendsList from "../components/FriendsList";
 import AllUsersList from "../components/AllUsersList";
 import FriendsActions from "../components/FriendsActions";
 
-const API_URL = "http://localhost:5005";
+const API_URL = "https://anime.adaptable.app";
 
 export default function UserPage() {
     const { userId } = useParams();
@@ -101,7 +101,7 @@ export default function UserPage() {
                 <p>Friends: {user.friends.length}</p>
             </div>
 
-            <div className="flex  mb-8">
+            <div className="flex mb-8">
                 <div className="mb-8">
                     <h2 className="text-xl font-semibold mb-2">User Feed</h2>
                     {feeds.map(feed => (
@@ -117,20 +117,20 @@ export default function UserPage() {
 
 
 
-            <div className="flex flex-row justify-between text-4xl pb-4 text-white bg-gradient-to-r from-orange-400 via-red-600 to-red-700 border-black rounded-md border-2">
+            <div className=" text-xs flex flex-row justify-between sm:text-xl md:text-4xl pb-4 text-white bg-gradient-to-r from-orange-400 via-red-600 to-red-700 border-black rounded-md border-2">
                 <div className="w-1/4 ml-6">
-                    <h2 className="text-4xl font-semibold mb-2">  Friends </h2>
+                    <h2 className="text-sm sm:text-xl md:text-4xl font-semibold mb-2">  Friends </h2>
                     <FriendsList friends={user.friends} removeFriend={handleRemoveFriend} />
                 </div>
 
                 <div className="w-1/2 flex flex-col items-center">
-                    <h2 className="text-4xl font-semibold mb-2 ">  Friends Actions</h2>
+                    <h2 className="text-sm sm:text-xl md:text-4xl font-semibold mb-2 ">  Friends Actions</h2>
                     <FriendsActions userId={userId} />
                 </div>
 
                 <div className="w-1/4 ">
                     <div className="mr-6 text-right">
-                    <h2 className="text-4xl font-semibold mb-2">Add  Friends</h2>
+                    <h2 className="text-sm sm:text-xl md:text-4xl font-semibold mb-2">Add  Friends</h2>
                     <AllUsersList allUsers={allUsers} userFriends={user.friends} addFriend={handleAddFriend} />
                     </div>
                 </div>
