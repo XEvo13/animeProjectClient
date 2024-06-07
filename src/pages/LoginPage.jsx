@@ -23,7 +23,7 @@ function LoginPage(props) {
         e.preventDefault();
         const requestBody = { email, password };
 
-        authService.login(requestBody) //ADD
+        authService.login(requestBody) 
             .then((response) => {
 
 
