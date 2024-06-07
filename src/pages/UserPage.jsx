@@ -6,7 +6,7 @@ import FriendsList from "../components/FriendsList";
 import AllUsersList from "../components/AllUsersList";
 import FriendsActions from "../components/FriendsActions";
 
-const API_URL = "http://localhost:5005";
+const API_URL = "https://anime.adaptable.app";
 
 export default function UserPage() {
     const { userId } = useParams();
