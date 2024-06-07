@@ -10,6 +10,7 @@ import IsPrivate from "./components/IsPrivate";
 import { AuthProviderWrapper } from "./context/auth.context";
 import Navbar from "./components/Navbar";
 import UserPage from "./pages/UserPage";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -22,7 +23,7 @@ function App() {
         <Route path="/login" element={<IsAnon> <LoginPage /> </IsAnon>} />
         <Route path="/signup" element={<IsAnon> <SignupPage /> </IsAnon>} />
       </Routes>
-      
+      <Footer />
     </AuthProviderWrapper>
   );
 }
