@@ -22,7 +22,7 @@ const FriendsActions = ({ userId }) => {
   
     return (
         <div>
-            <h2>Friends' Recent Actions</h2>
+            {/* <h2>Friends' Recent Actions</h2> */}
             {errorMessage && <p className="error-message">{errorMessage}</p>}
             <ul>
                 {actions.map(action => (

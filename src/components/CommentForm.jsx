@@ -33,7 +33,8 @@ function CommentForm({ animeId, onAddComment }) {
       // Update existing comment
       axios.put(`http://localhost:5005/api/comments/${existingCommentId}`, { content, user: userId, actionsId })
         .then(response => {
-          setContent(response.data.comment.content);
+          setContent("");
+          // setContent(response.data.comment.content);
           if (onAddComment) {
             onAddComment(response.data.comment); // Pass updated comment to handler
           }
@@ -76,15 +77,25 @@ function CommentForm({ animeId, onAddComment }) {
 
 
   return (
-    <form onSubmit={handleSubmit}>
+    <div className='flex flex-row w-1/4 text-4xs pb-4 bg-gradient-to-r from-orange-400 via-red-600 to-red-700 border-black rounded-md border-2'>
+    <form onSubmit={handleSubmit} className="flex flex-col w-full p-4">
       <textarea
         value={content}
         onChange={(e) => setContent(e.target.value)}
         placeholder="Add a comment"
+        className="w-full p-2 mb-4 border rounded"
       ></textarea>
-      <button type="submit">{existingCommentId ? "Update Comment" : "Submit Comment"}</button>
-      {existingCommentId && <button type="button" onClick={handleDelete}>Delete Comment</button>}
+      <button type="submit" className="mb-2 bg-orange-400 text-white py-1 px-4  border-black border-2 rounded">
+        {existingCommentId ? "Update Comment" : "Submit Comment"}
+      </button>
+      {existingCommentId && (
+        <button type="button" onClick={handleDelete} className="bg-red-600  text-white py-1 border-black border-2 px-4 rounded">
+          Delete Comment
+        </button>
+      )}
     </form>
+  </div>
+  
   );
 
 }

@@ -5,7 +5,7 @@ const AllUsersList = ({ allUsers, userFriends, addFriend }) => {
 
     return (
         <div>
-            <h2>Add Friends</h2>
+            {/* <h2>Add Friends</h2> */}
             <ul>
                 {allUsers.filter(user => !friendsIds.includes(user._id)).map(user => (
                     <li key={user._id} onClick={() => addFriend(user._id)} style={{ cursor: 'pointer' }}>
